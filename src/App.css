@@ -1,0 +1,92 @@
+/* Add these styles to your main CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Chart.js tooltip customization */
+.chartjs-tooltip {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.chartjs-tooltip-key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead tr {
+  background-color: #e5e7eb; /* bg-gray-200 */
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500; /* font-medium */
+  text-transform: uppercase; /* uppercase */
+  letter-spacing: 0.05em; /* tracking-wider */
+  color: #374151; /* text-gray-700 */
+}
+
+tbody {
+  border-top: 1px solid #e5e7eb; /* just one line at the start of tbody */
+}
+
+tbody tr {
+  border-top: 1px solid #e5e7eb; /* horizontal divider */
+  transition: background-color 0.2s;
+}
+
+tbody tr:first-child {
+  border-top: none; /* remove the first one */
+}
+
+
+tbody tr:hover {
+  background-color: #f3f4f6; /* hover:bg-gray-100 */
+}
+
+th, td {
+  padding: 0.75rem 1.5rem; /* py-3 px-6 (th) */
+  text-align: left;
+}
+
+td {
+  padding: 0.5rem 1.5rem; /* py-2 px-6 (td) */
+  font-size: 0.875rem; /* text-sm */
+  color: #111827; /* text-gray-900 */
+}
+
+td.text-center, th.text-center {
+  text-align: center;
+}
+
+tbody {
+  border-top: 1px solid #e5e7eb; /* divide-y divide-gray-200 */
+}
