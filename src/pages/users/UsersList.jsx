@@ -4,6 +4,8 @@ import { FaSearch, FaFilter, FaPlus } from "react-icons/fa";
 import CreateUserModal from "../../components/modals/CreateUserModal";
 import Pagination from "../../components/Pagination";
 import UsersTable from "../../components/tables/UsersTable";
+import Button from "../../components/ui/Button";
+import SearchBar from "../../components/ui/SearchBar";
 
 const UserManagement = () => {
     const [users, setUsers] = useState([
@@ -98,36 +100,26 @@ const UserManagement = () => {
                 <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
                     User Management
                 </h1>
-                <button
-                    className="bg-green-600 text-white px-4 py-2 rounded-md flex items-center"
-                    onClick={() => setShowCreateModal(true)}
-                >
-                    <FaPlus className="mr-2" /> Add User
-                </button>
+                <Button variant="primary" onClick={() => setShowCreateModal(true)} >
+                    <FaPlus className="mr-2" />  Add User
+                </Button>
+
             </div>
 
             {/* Search + Filters */}
             <div className="bg-white rounded-lg shadow-sm">
-                <div className="flex flex-col md:flex-row md:items-center gap-4">
-                    <div className="relative flex-1">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <FaSearch className="text-gray-400" />
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Search users by name, email or phone..."
-                            className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-600"
+                <div className="flex w-full flex-col md:flex-row md:items-center gap-4">
+                    <div className="flex w-full">
+                        <SearchBar
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search users..."
                         />
                     </div>
-
-                    <button
-                        className="flex items-center text-gray-600 border-2 border-gray-300 hover:border-green-600 rounded-md px-4 py-2 "
-                        onClick={() => setShowFilters(!showFilters)}
-                    >
+                    <Button variant="outline" onClick={() => setShowFilters(!showFilters)} >
                         <FaFilter className="mr-2" /> Filters
-                    </button>
+                    </Button>
+                  
                 </div>
 
                 {showFilters && (

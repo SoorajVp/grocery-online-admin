@@ -1,10 +1,12 @@
 // UserDetails.js - User Detail Page
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaEdit } from 'react-icons/fa';
+import Button from '../../components/ui/Button';
 
 const UserDetails = () => {
-    const { userId } = useParams();
+    const { id } = useParams();
+    const navigate = useNavigate();
 
     // In a real app, you would fetch user data based on userId
     const user = {
@@ -43,7 +45,7 @@ const UserDetails = () => {
 
     return (
         <div className="p-6 bg-gray-50">
-            <div className="flex items-center mb-5">
+            <div className="flex items-center justify-between mb-5">
                 {/* <Link
                     to="/users"
                     className="flex items-center text-gray-600 hover:text-gray-800 mr-4"
@@ -51,12 +53,9 @@ const UserDetails = () => {
                     <FaArrowLeft className="mr-2" /> Back to Users
                 </Link> */}
                 <h1 className="text-2xl font-bold text-gray-800">User Details</h1>
-                <Link
-                    to={`/admin/users/${userId}/edit`}
-                    className="ml-auto bg-green-600 text-white px-4 py-2 rounded-md flex items-center"
-                >
-                    <FaEdit className="mr-2" /> Edit User
-                </Link>
+                <Button variant="primary" onClick={() => navigate(`/admin/users/${id}/edit`)} >
+                    <FaEdit className="mr-2" />Edit User
+                </Button>
             </div>
 
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -80,7 +79,7 @@ const UserDetails = () => {
                                 <div>
                                     <label className="block text-xs md:text-sm font-medium text-gray-600">Status</label>
                                     <p className="mt-1">
-                                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                        <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-md ${user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                                             {user.status}
                                         </span>
                                     </p>

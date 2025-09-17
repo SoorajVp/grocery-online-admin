@@ -102,22 +102,22 @@ const UsersTable = ({ users, toggleUserStatus }) => {
                                     </button>
 
                                     {openMenu === user.id && (
-                                        <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                                            <ul className="py-1 text-sm text-gray-700">
+                                        <div className="absolute right-0 mt-2 w-24 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                                            <ul className="py-1 text-sm text-gray-700 ">
                                                 <li>
                                                     <Link
                                                         to={`/users/${user.id}`}
-                                                        className="flex items-center px-4 py-2 hover:bg-gray-100"
+                                                        className="flex items-center px-4 py-1 hover:bg-green-100"
                                                     >
-                                                        <FaEye className="mr-2 text-blue-600" /> View
+                                                        View
                                                     </Link>
                                                 </li>
                                                 <li>
                                                     <Link
                                                         to={`/users/${user.id}/edit`}
-                                                        className="flex items-center px-4 py-2 hover:bg-gray-100"
+                                                        className="flex items-center px-4 py-1 hover:bg-green-100"
                                                     >
-                                                        <FaEdit className="mr-2 text-green-600" /> Edit
+                                                         Edit
                                                     </Link>
                                                 </li>
                                                 <li>
@@ -126,14 +126,9 @@ const UsersTable = ({ users, toggleUserStatus }) => {
                                                             toggleUserStatus(user.id);
                                                             setOpenMenu(null);
                                                         }}
-                                                        className="w-full flex items-center px-4 py-2 text-left hover:bg-gray-100"
+                                                        className="w-full flex items-center px-4 py-1 text-left hover:bg-green-100"
                                                     >
-                                                        <FaBan
-                                                            className={`mr-2 ${user.status === "active"
-                                                                    ? "text-red-600"
-                                                                    : "text-green-600"
-                                                                }`}
-                                                        />
+                                                        
                                                         {user.status === "active" ? "Block" : "Unblock"}
                                                     </button>
                                                 </li>
