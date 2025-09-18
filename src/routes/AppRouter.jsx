@@ -8,27 +8,30 @@ import UserDetails from "../pages/users/UserDetails";
 import AdminLogin from "../pages/auth/Login";
 import ProductsList from "../pages/product/ProductsList";
 import AddProduct from "../pages/product/AddProduct";
+import ViewProduct from "../pages/product/ViewProduct";
+import EditProduct from "../pages/product/EditProduct";
 
 const AppRouter = () => {
-  return (
-      <BrowserRouter>
-          <Routes>
-              <Route path="/login" element={<AdminLogin />} />
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/login" element={<AdminLogin />} />
 
-              {/* Main layout with header/footer */}
-              <Route path="/" element={<Layout />}>
-                  <Route index element={<Home />} />
-                  <Route path="dashboard" element={<Dashboard />} />
-                  <Route path="users" element={<UserManagement />} />
-                  <Route path="users/:id" element={<UserDetails />} />
-                  <Route path="products" element={<ProductsList />} />
-                  <Route path="products/create" element={<AddProduct />} />
+                {/* Main layout with header/footer */}
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="users" element={<UserManagement />} />
+                    <Route path="users/:id" element={<UserDetails />} />
+                    <Route path="products" element={<ProductsList />} />
+                    <Route path="products/create" element={<AddProduct />} />
+                    <Route path="products/:id" element={<ViewProduct />} />
+                    <Route path="products/:id/edit" element={<EditProduct />} />
 
-
-              </Route>
-          </Routes>
-      </BrowserRouter>
-  )
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default AppRouter

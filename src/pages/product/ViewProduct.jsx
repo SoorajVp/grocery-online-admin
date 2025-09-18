@@ -1,10 +1,32 @@
 // pages/ViewProduct.js
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import Button from "../../components/ui/Button";
+import { FaEdit } from "react-icons/fa";
 
-const ViewProduct = ({ products }) => {
+const ViewProduct = () => {
     const { id } = useParams();
-    const product = products.find((p) => p.id.toString() === id);
+    const navigate = useNavigate()
+    const product = {
+        id: 2,
+        name: "Organic Wheat Flour",
+        sku: "WHEAT001",
+        description: "Stone-ground organic wheat flour.",
+        categories: ["Wheat", "Flour"],
+        images: [
+            "https://picsum.photos/1920/1080",
+            "https://picsum.photos/1920/1080",
+            "https://picsum.photos/1920/1080",
+            "https://picsum.photos/1920/1080",
+        ],
+        price: 80,
+        quantity: 100,
+        unit: "1 kg",
+        active: true,
+        createdBy: "Admin1",
+        updatedBy: "Admin1",
+        createdAt: "2023-02-20",
+    }
 
     if (!product) {
         return (
@@ -13,51 +35,21 @@ const ViewProduct = ({ products }) => {
     }
 
     return (
-        <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg p-8">
+        <div className="mx-auto bg-white shadow-md rounded-lg p-6">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-semibold text-gray-800">{product.name}</h1>
-                <Link
-                    to={`/products/${product.id}/edit`}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                    Edit
-                </Link>
+                <h1 className="text-2xl font-semibold text-gray-800">Product Details</h1>
+                <Button variant="primary" onClick={() => navigate(`/products/${id}/edit`)} >
+                    <FaEdit className="mr-2" />Update Product
+                </Button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Left - Images */}
-                <div>
-                    <div className="w-full h-64 bg-gray-100 rounded overflow-hidden">
-                        {product.images?.[0] ? (
-                            <img
-                                src={product.images[0]}
-                                alt={product.name}
-                                className="w-full h-full object-cover"
-                            />
-                        ) : (
-                            <div className="flex items-center justify-center h-full text-gray-400">
-                                No Image
-                            </div>
-                        )}
-                    </div>
-
-                    {product.images?.length > 1 && (
-                        <div className="flex gap-3 mt-3">
-                            {product.images.slice(1).map((img, idx) => (
-                                <img
-                                    key={idx}
-                                    src={img}
-                                    alt={`extra-${idx}`}
-                                    className="w-20 h-20 object-cover rounded"
-                                />
-                            ))}
-                        </div>
-                    )}
-                </div>
-
-                {/* Right - Details */}
+              
                 <div className="space-y-4">
+                    <p>
+                        <span className="font-semibold">Name:</span> {product.name}
+                    </p>
                     <p>
                         <span className="font-semibold">SKU:</span> {product.sku}
                     </p>
@@ -72,8 +64,8 @@ const ViewProduct = ({ products }) => {
                         <span className="font-semibold">Status:</span>{" "}
                         <span
                             className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${product.active
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-red-100 text-red-800"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
                                 }`}
                         >
                             {product.active ? "Active" : "Inactive"}
@@ -91,6 +83,22 @@ const ViewProduct = ({ products }) => {
                         </p>
                     </div>
                 </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                    
+                    {product.images.slice(1).map((img, idx) => (
+                        <img
+                            key={idx}
+                            src={img}
+                            alt={`extra-${idx}`}
+                            className="w-full h-44 object-cover rounded"
+                        />
+                    ))}
+                    
+                </div>
+
+                {/* Right - Details */}
+               
             </div>
         </div>
     );

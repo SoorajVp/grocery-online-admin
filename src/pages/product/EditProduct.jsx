@@ -1,21 +1,31 @@
-// pages/AddProduct.js
+// pages/EditProduct.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../../components/ui/InputField";
 import Button from "../../components/ui/Button";
 
-const AddProduct = ({ addProduct }) => {
+const EditProduct = ({ addProduct }) => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        name: "",
-        sku: "",
-        price: "",
-        quantity: "",
-        unit: "",
-        description: "",
-        images: ["", "", "", ""], // 4 slots minimum
-        active: "true", // now stored as string for dropdown
+        id: 2,
+        name: "Organic Wheat Flour",
+        sku: "WHEAT001",
+        description: "Stone-ground organic wheat flour.",
+        categories: ["Wheat", "Flour"],
+        images: [
+            "https://picsum.photos/1920/1080",
+            "https://picsum.photos/1920/1080",
+            "https://picsum.photos/1920/1080",
+            "https://picsum.photos/1920/1080",
+        ],
+        price: 80,
+        quantity: 100,
+        unit: "1 kg",
+        active: true,
+        createdBy: "Admin1",
+        updatedBy: "Admin1",
+        createdAt: "2023-02-20",
     });
 
     const [errors, setErrors] = useState({});
@@ -193,4 +203,4 @@ const AddProduct = ({ addProduct }) => {
     );
 };
 
-export default AddProduct;
+export default EditProduct;
