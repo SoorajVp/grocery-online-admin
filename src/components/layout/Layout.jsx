@@ -13,7 +13,7 @@ const Layout = () => {
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Header />
                 <main className="flex-1 overflow-y-auto ml-14 lg:ml-0">
-                    <div className="bg-slate-100 h-full w-full">
+                    <div className="bg-green-50 h-full w-full">
                         <Outlet />
                     </div>
                 </main>

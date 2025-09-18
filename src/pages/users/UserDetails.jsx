@@ -44,7 +44,7 @@ const UserDetails = () => {
     ];
 
     return (
-        <div className="p-6 bg-gray-50">
+        <div className="p-6">
             <div className="flex items-center justify-between mb-5">
                 {/* <Link
                     to="/users"
@@ -58,12 +58,12 @@ const UserDetails = () => {
                 </Button>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div className="rounded-lg shadow-sm overflow-hidden">
                 <div className="">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div>
                             <h3 className="text-base lg:text-lg font-medium text-gray-800 mb-2">Personal Information</h3>
-                            <div className="space-y-3 border border-gray-300 rounded-md p-4">
+                            <div className="space-y-3 bg-white border border-gray-300 rounded-md p-4">
                                 <div>
                                     <label className="block text-xs md:text-sm font-medium text-gray-600">Username</label>
                                     <p className="mt-1 text-sm md:text-base text-gray-900">{user.username}</p>
@@ -89,7 +89,7 @@ const UserDetails = () => {
 
                         <div>
                             <h3 className="text-base lg:text-lg font-medium text-gray-800 mb-2">Activity Information</h3>
-                            <div className="space-y-3 border border-gray-300 rounded-md p-4">
+                            <div className="space-y-3 bg-white border border-gray-300 rounded-md p-4">
                                 <div>
                                     <label className="block text-xs md:text-sm font-medium text-gray-600">Join Date</label>
                                     <p className="mt-1 text-sm md:text-base text-gray-900">{user.joinDate}</p>
@@ -114,7 +114,7 @@ const UserDetails = () => {
                         <h3 className="text-base lg:text-lg font-medium text-gray-800 mb-2">Addresses</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {addresses.map(address => (
-                                <div key={address.id} className="border border-gray-300 rounded-md p-4">
+                                <div key={address.id} className="border border-gray-300 bg-white rounded-md p-4">
                                     <div className="flex justify-between items-start mb-2">
                                         <span className="font-medium text-sm md:text-base text-gray-800">{address.type}</span>
                                         {address.isDefault && (

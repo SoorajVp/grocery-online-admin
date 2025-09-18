@@ -95,7 +95,7 @@ const UserManagement = () => {
     };
 
     return (
-        <div className="p-6 bg-gray-50 space-y-3">
+        <div className="p-6 space-y-3">
             <div className="flex justify-between items-center">
                 <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
                     User Management
@@ -107,7 +107,7 @@ const UserManagement = () => {
             </div>
 
             {/* Search + Filters */}
-            <div className="bg-white rounded-lg shadow-sm">
+            <div className="rounded-lg shadow-sm">
                 <div className="flex w-full flex-col md:flex-row md:items-center gap-4">
                     <div className="flex w-full">
                         <SearchBar

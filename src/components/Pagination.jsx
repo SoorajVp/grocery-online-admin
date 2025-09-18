@@ -2,7 +2,7 @@ import React from 'react'
 
 const Pagination = () => {
     return (
-        <div className="bg-white p-3 border-t border-gray-200">
+        <div className="bg-white p-3 border border-gray-200 rounded-lg">
             <div className="flex items-center justify-between">
                 <div className="text-sm text-gray-700">
                     Showing <span className="font-medium">1</span> to <span className="font-medium">5</span> of{' '}

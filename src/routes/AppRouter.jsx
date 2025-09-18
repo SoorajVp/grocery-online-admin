@@ -5,11 +5,14 @@ import Home from "../pages/Home";
 import Dashboard from "../pages/dashboard";
 import UserManagement from "../pages/users/UsersList";
 import UserDetails from "../pages/users/UserDetails";
+import AdminLogin from "../pages/auth/Login";
 
 const AppRouter = () => {
   return (
       <BrowserRouter>
           <Routes>
+              <Route path="/login" element={<AdminLogin />} />
+
               {/* Main layout with header/footer */}
               <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
