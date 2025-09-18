@@ -14,7 +14,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [activeMenu, setActiveMenu] = useState('Dashboard');
 
     const toggleSidebar = () => {

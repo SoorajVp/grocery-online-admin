@@ -28,7 +28,7 @@ const UsersTable = ({ users, toggleUserStatus }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 relative">
             <div className="overflow-x-auto">
                 <table>
                     <thead>
@@ -91,18 +91,18 @@ const UsersTable = ({ users, toggleUserStatus }) => {
 
                                 {/* Actions (dropdown) */}
                                 <td
-                                    className="text-center relative"
+                                    className="text-center"
                                     ref={(el) => (menuRefs.current[user.id] = el)}
                                 >
                                     <button
                                         onClick={() => toggleMenu(user.id)}
-                                        className="p-2 rounded-full hover:bg-gray-100 focus:outline-none"
+                                        className="p-2 rounded-full hover:bg-green-100 focus:outline-none"
                                     >
                                         <FaEllipsisV className="text-gray-600" />
                                     </button>
 
                                     {openMenu === user.id && (
-                                        <div className="absolute right-0 mt-2 w-24 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                                        <div className="absolute right-0 mt-2 w-24 bg-white border border-gray-200 rounded-md shadow-lg z-20">
                                             <ul className="py-1 text-sm text-gray-700 ">
                                                 <li>
                                                     <Link

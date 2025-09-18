@@ -6,6 +6,8 @@ import Dashboard from "../pages/dashboard";
 import UserManagement from "../pages/users/UsersList";
 import UserDetails from "../pages/users/UserDetails";
 import AdminLogin from "../pages/auth/Login";
+import ProductsList from "../pages/product/ProductsList";
+import AddProduct from "../pages/product/AddProduct";
 
 const AppRouter = () => {
   return (
@@ -19,6 +21,10 @@ const AppRouter = () => {
                   <Route path="dashboard" element={<Dashboard />} />
                   <Route path="users" element={<UserManagement />} />
                   <Route path="users/:id" element={<UserDetails />} />
+                  <Route path="products" element={<ProductsList />} />
+                  <Route path="products/create" element={<AddProduct />} />
+
+
               </Route>
           </Routes>
       </BrowserRouter>
