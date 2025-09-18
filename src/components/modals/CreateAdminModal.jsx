@@ -1,23 +1,28 @@
 import { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
-import { validateUserForm } from "../../utils/validate";
+import { validateAdminForm } from "../../utils/validate";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
+import AdminService from "../../api/service/admin";
 
-const CreateUserModal = ({ onClose, onSave }) => {
+const CreateAdminModal = ({ onClose, onSave }) => {
     const [formData, setFormData] = useState({
-        username: "",
+        name: "",
         email: "",
         mobile: "",
+        password: "",
+        role: "admin",
         status: "active",
     });
 
     const [open, setOpen] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({}); // ✅ hold validation errors
 
     useEffect(() => {
-        setOpen(true); // trigger opening animation
+        // Trigger opening animation
+        setOpen(true);
     }, []);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,20 +30,32 @@ const CreateUserModal = ({ onClose, onSave }) => {
         setErrors((prev) => ({ ...prev, [name]: "" })); // clear error on change
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        const validationErrors = validateUserForm(formData);
+        const validationErrors = validateAdminForm(formData);
+        console.log('validationErrors', validationErrors)
         if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
+            setErrors(validationErrors); // show errors
             return;
         }
-        onSave(formData);
+
+        try {
+            const res = await AdminService.createAdmin(formData)
+            console.log('res', res)
+        } catch (error) {
+            console.error("Error creating admin:", error);
+        }
+
+        onSave(formData); 
     };
 
     const handleClose = () => {
+        // Trigger closing animation
         setOpen(false);
-        setTimeout(onClose, 300); // wait for animation
+        setTimeout(onClose, 300); // wait for animation to finish
     };
+
+
 
     return (
         <div className="fixed inset-0 z-50 flex">
@@ -57,7 +74,7 @@ const CreateUserModal = ({ onClose, onSave }) => {
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b">
                     <h2 className="text-xl font-semibold text-gray-800">
-                        Create New User
+                        Create New Admin
                     </h2>
                     <button
                         onClick={handleClose}
@@ -73,32 +90,33 @@ const CreateUserModal = ({ onClose, onSave }) => {
                     className="p-6 overflow-y-auto h-[calc(100%-64px)]"
                 >
                     <div className="space-y-4">
-                        {/* Username */}
-                        <InputField
-                            label="Username *"
-                            name="username"
-                            onChange={handleChange}
-                            value={formData.username}
-                            error={errors.username}
-                        />
+                        {/* Name */}
+                        <InputField label="Full Name *" name="name" onChange={handleChange} value={formData.name} error={errors.name} />
 
                         {/* Email */}
-                        <InputField
-                            label="Email Address *"
-                            name="email"
-                            onChange={handleChange}
-                            value={formData.email}
-                            error={errors.email}
-                        />
+                        <InputField label="Email Address *" name="email" onChange={handleChange} value={formData.email} error={errors.email} />
 
                         {/* Mobile */}
-                        <InputField
-                            label="Phone Number *"
-                            name="mobile"
-                            onChange={handleChange}
-                            value={formData.mobile}
-                            error={errors.mobile}
-                        />
+                        <InputField label="Phone Number *" name="mobile" onChange={handleChange} value={formData.mobile} error={errors.mobile} />
+
+                        {/* Password */}
+                        <InputField label="Password *" type="password" name="password" onChange={handleChange} value={formData.password} error={errors.password} />
+
+                        {/* Role */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Role
+                            </label>
+                            <select
+                                name="role"
+                                value={formData.role}
+                                onChange={handleChange}
+                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            >
+                                <option value="admin">Admin</option>
+                                <option value="super-admin">Super Admin</option>
+                            </select>
+                        </div>
 
                         {/* Status */}
                         <div>
@@ -119,12 +137,14 @@ const CreateUserModal = ({ onClose, onSave }) => {
 
                     {/* Actions */}
                     <div className="mt-8 flex justify-end space-x-3">
-                        <Button variant="muted" onClick={handleClose} type="button">
-                            Cancel
+                       
+                        <Button variant="muted" onClick={handleClose} >
+                            Create
                         </Button>
-                        <Button variant="primary" type="submit">
-                            Create User
+                        <Button variant="primary" type="submit" >
+                            Create
                         </Button>
+                        
                     </div>
                 </form>
             </div>
@@ -132,4 +152,4 @@ const CreateUserModal = ({ onClose, onSave }) => {
     );
 };
 
-export default CreateUserModal;
+export default CreateAdminModal;

@@ -12,6 +12,8 @@ const Button = ({ children, variant = "primary", onClick, type = "button" }) => 
       "border border-green-600 text-green-600 hover:bg-green-50 focus:ring-2 focus:ring-green-500",
     ghost:
       "text-green-600 hover:bg-green-100 focus:ring-2 focus:ring-green-500",
+    muted:
+      "text-gray-800 bg-gray-200 hover:bg-gray-100 focus:ring-2 focus:ring-gray-500",
     danger:
       "bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500",
   };

@@ -60,6 +60,7 @@ const ViewProduct = () => {
                         <span className="font-semibold">Stock:</span> {product.quantity}{" "}
                         {product.unit}
                     </p>
+                    
                     <p>
                         <span className="font-semibold">Status:</span>{" "}
                         <span

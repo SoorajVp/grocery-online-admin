@@ -36,8 +36,9 @@ const AdminLogin = () => {
 
             try {
                 const res = await AuthServce.adminLogin({ email, password });
-                console.log("res", res);
-                setError(""); // clear error if success
+                console.log("res", res.token);
+                localStorage.setItem("access-token", res.token);
+                setError(""); 
             } catch (err) {
                 console.error("error", err);
                 setError("Login failed, please try again");

@@ -10,6 +10,7 @@ import ProductsList from "../pages/product/ProductsList";
 import AddProduct from "../pages/product/AddProduct";
 import ViewProduct from "../pages/product/ViewProduct";
 import EditProduct from "../pages/product/EditProduct";
+import AdminManagement from "../pages/admin/AdminList";
 
 const AppRouter = () => {
     return (
@@ -23,6 +24,10 @@ const AppRouter = () => {
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="users" element={<UserManagement />} />
                     <Route path="users/:id" element={<UserDetails />} />
+
+                    <Route path="admins" element={<AdminManagement />} />
+                    <Route path="admins/:id" element={<UserDetails />} />
+
                     <Route path="products" element={<ProductsList />} />
                     <Route path="products/create" element={<AddProduct />} />
                     <Route path="products/:id" element={<ViewProduct />} />

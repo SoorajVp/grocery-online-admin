@@ -10,10 +10,10 @@ const api = axios.create({
 api.interceptors.request.use(
     (config) => {
         // Example: Add Authorization header
-        // const token = localStorage.getItem('token');
-        // if (token) {
-        //     config.headers.Authorization = `Bearer ${token}`;
-        // }
+        const token = localStorage.getItem('access-token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
         // You can also log requests here
         return config;
     },
