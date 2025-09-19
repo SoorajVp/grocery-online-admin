@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../../components/ui/InputField";
 import Button from "../../components/ui/Button";
+import CustomSelect from "../../components/ui/CustomSelect";
 
 const AddProduct = ({ addProduct }) => {
     const navigate = useNavigate();
@@ -118,19 +119,19 @@ const AddProduct = ({ addProduct }) => {
                     </div>
                     <div className="space-y-2">
 
+                        <CustomSelect
+                            label="Status"
+                            name="active"
+                            value={formData.active}
+                            onChange={handleChange}
+                            options={[
+                                { value: "true", label: "Active" },
+                                { value: "false", label: "Inactive" },
+                            ]}
+                            placeholder="Choose status..."
+                            error={errors.active}
+                        />
                         {/* Status Dropdown */}
-                        <div className="space-y-1">
-                            <label className="block text-xs md:text-sm font-medium text-gray-700">Status</label>
-                            <select
-                                name="active"
-                                value={formData.active}
-                                onChange={handleChange}
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-green-600"
-                            >
-                                <option value="true">Active</option>
-                                <option value="false">Inactive</option>
-                            </select>
-                        </div>
 
                         {/* Images Upload with replace */}
                         <div className="md:col-span-2">

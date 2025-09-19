@@ -11,6 +11,7 @@ import AddProduct from "../pages/product/AddProduct";
 import ViewProduct from "../pages/product/ViewProduct";
 import EditProduct from "../pages/product/EditProduct";
 import AdminManagement from "../pages/admin/AdminList";
+import Categories from "../pages/categories/Categories";
 
 const AppRouter = () => {
     return (
@@ -27,6 +28,8 @@ const AppRouter = () => {
 
                     <Route path="admins" element={<AdminManagement />} />
                     <Route path="admins/:id" element={<UserDetails />} />
+
+                    <Route path="categories" element={<Categories />} />
 
                     <Route path="products" element={<ProductsList />} />
                     <Route path="products/create" element={<AddProduct />} />

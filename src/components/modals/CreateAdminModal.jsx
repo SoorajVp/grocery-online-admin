@@ -4,6 +4,7 @@ import { validateAdminForm } from "../../utils/validate";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
 import AdminService from "../../api/service/admin";
+import CustomSelect from "../ui/CustomSelect";
 
 const CreateAdminModal = ({ onClose, onSave }) => {
     const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ const CreateAdminModal = ({ onClose, onSave }) => {
         mobile: "",
         password: "",
         role: "admin",
-        status: "active",
+        blocked: "false",
     });
 
     const [open, setOpen] = useState(false);
@@ -102,22 +103,26 @@ const CreateAdminModal = ({ onClose, onSave }) => {
                         <InputField label="Password *" type="password" name="password" onChange={handleChange} value={formData.password} error={errors.password} />
 
                         {/* Role */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Role
-                            </label>
-                            <select
-                                name="role"
-                                value={formData.role}
-                                onChange={handleChange}
-                                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            >
-                                <option value="admin">Admin</option>
-                                <option value="super-admin">Super Admin</option>
-                            </select>
-                        </div>
+                        <CustomSelect label="Role" name="role" value={formData.role}
+                            onChange={handleChange}
+                            options={[
+                                { value: "admin", label: "Admin" },
+                                { value: "super-admin", label: "Super Admin" },
+                            ]}
+                            placeholder="Choose status..."
+                            error={errors.role}
+                        />
 
                         {/* Status */}
+                        <CustomSelect label="Status" name="blocked" value={formData.blocked}
+                            onChange={handleChange}
+                            options={[
+                                { value: "false", label: "Active" },
+                                { value: "true", label: "Blocked" },
+                            ]}
+                            placeholder="Choose status..."
+                            error={errors.blocked}
+                        />
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Status
@@ -138,7 +143,7 @@ const CreateAdminModal = ({ onClose, onSave }) => {
                     <div className="mt-8 flex justify-end space-x-3">
                        
                         <Button variant="muted" onClick={handleClose} >
-                            Create
+                            Cancel
                         </Button>
                         <Button variant="primary" type="submit" >
                             Create
