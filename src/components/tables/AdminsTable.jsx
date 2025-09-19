@@ -1,10 +1,12 @@
 // components/tables/AdminTable.js
 import React, { useState, useEffect, useRef } from "react";
 import { FaEllipsisV } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const AdminTable = ({ admins, toggleAdminStatus }) => {
     const [openMenu, setOpenMenu] = useState(null);
+    const { loading } = useSelector((state) => state.admin);
     const menuRefs = useRef({});
 
     // close dropdown on outside click
@@ -26,7 +28,7 @@ const AdminTable = ({ admins, toggleAdminStatus }) => {
 
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 relative">
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto overflow-visible">
                 <table>
                     <thead>
                         <tr>
@@ -40,6 +42,13 @@ const AdminTable = ({ admins, toggleAdminStatus }) => {
                         </tr>
                     </thead>
                     <tbody>
+                        {loading && (
+                            <tr>
+                                <td colSpan="7" className="text-center py-6">
+                                    Loading...
+                                </td>
+                            </tr>
+                        )}
                         {admins.map((admin) => (
                             <tr key={admin._id}>
                                 {/* Admin column */}
@@ -62,7 +71,9 @@ const AdminTable = ({ admins, toggleAdminStatus }) => {
                                 </td>
 
                                 {/* Mobile */}
-                                <td className="text-center text-gray-500 text-nowrap">{admin.mobile}</td>
+                                <td className="text-center text-gray-500 text-nowrap">
+                                    {admin.mobile}
+                                </td>
 
                                 {/* Email */}
                                 <td className="text-center text-gray-500">{admin.email}</td>
@@ -97,50 +108,49 @@ const AdminTable = ({ admins, toggleAdminStatus }) => {
                                 </td>
 
                                 {/* Actions */}
-                                <td
-                                    className="text-center relative"
-                                    ref={(el) => (menuRefs.current[admin._id] = el)}
-                                >
-                                    <button
-                                        onClick={() => toggleMenu(admin._id)}
-                                        className="p-2 rounded-full hover:bg-green-100 focus:outline-none"
-                                    >
-                                        <FaEllipsisV className="text-gray-600" />
-                                    </button>
+                                <td className="text-center " ref={(el) => (menuRefs.current[admin._id] = el)}>
+                                    <div className="inline-block">
+                                        <button
+                                            onClick={() => toggleMenu(admin._id)}
+                                            className="p-2 rounded-full hover:bg-green-100 focus:outline-none"
+                                        >
+                                            <FaEllipsisV className="text-gray-600" />
+                                        </button>
 
-                                    {openMenu === admin._id && (
-                                        <div className="absolute right-0 mt-2 w-24 bg-white border border-gray-200 rounded-md shadow-lg z-20">
-                                            <ul className="py-1 text-sm text-gray-700">
-                                                <li>
-                                                    <Link
-                                                        to={`/admins/${admin._id}`}
-                                                        className="flex items-center px-4 py-1 hover:bg-green-100"
-                                                    >
-                                                        View
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to={`/admins/${admin._id}/edit`}
-                                                        className="flex items-center px-4 py-1 hover:bg-green-100"
-                                                    >
-                                                        Edit
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        onClick={() => {
-                                                            toggleAdminStatus(admin._id);
-                                                            setOpenMenu(null);
-                                                        }}
-                                                        className="w-full flex items-center px-4 py-1 text-left hover:bg-green-100"
-                                                    >
-                                                        {admin.blocked ? "Unblock" : "Block"}
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    )}
+                                        {openMenu === admin._id && (
+                                            <div className="absolute right-0 mt-2 w-28 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                                                <ul className="py-1 text-sm text-gray-700">
+                                                    <li>
+                                                        <Link
+                                                            to={`/admins/${admin._id}`}
+                                                            className="flex items-center px-4 py-1 hover:bg-green-100"
+                                                        >
+                                                            View
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to={`/admins/${admin._id}/edit`}
+                                                            className="flex items-center px-4 py-1 hover:bg-green-100"
+                                                        >
+                                                            Edit
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            onClick={() => {
+                                                                toggleAdminStatus(admin._id);
+                                                                setOpenMenu(null);
+                                                            }}
+                                                            className="w-full flex items-center px-4 py-1 text-left hover:bg-green-100"
+                                                        >
+                                                            {admin.blocked ? "Unblock" : "Block"}
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
                                 </td>
                             </tr>
                         ))}
@@ -148,10 +158,8 @@ const AdminTable = ({ admins, toggleAdminStatus }) => {
                 </table>
             </div>
 
-            {admins.length === 0 && (
-                <div className="text-center py-12 text-gray-500">
-                    No admins found
-                </div>
+            {admins.length === 0 && !loading && (
+                <div className="text-center py-6 text-gray-500">No admins found</div>
             )}
         </div>
     );

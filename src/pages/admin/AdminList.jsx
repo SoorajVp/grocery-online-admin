@@ -6,47 +6,39 @@ import Button from "../../components/ui/Button";
 import SearchBar from "../../components/ui/SearchBar";
 import AdminTable from "../../components/tables/AdminsTable";
 import CreateAdminModal from "../../components/modals/CreateAdminModal";
+import { useEffect } from "react";
+import AdminService from "../../api/service/admin";
+import { useDispatch } from "react-redux";
+import { toggleLoading } from "../../redux/slice/adminSlice";
 
 const AdminManagement = () => {
-    const [admins, setAdmins] = useState([
-        {
-            _id: "1",
-            name: "Alice Johnson",
-            mobile: "+1 222-333-4444",
-            email: "alice@domain.com",
-            role: "super-admin",
-            blocked: false,
-            createdAt: "2023-01-10",
-        },
-        {
-            _id: "2",
-            name: "Bob Smith",
-            mobile: "+1 333-444-5555",
-            email: "bob@domain.com",
-            role: "admin",
-            blocked: false,
-            createdAt: "2023-02-18",
-        },
-        {
-            _id: "3",
-            name: "Charlie Brown",
-            mobile: "+1 444-555-6666",
-            email: "charlie@domain.com",
-            role: "admin",
-            blocked: true,
-            createdAt: "2023-03-25",
-        },
-    ]);
-
+    const [admins, setAdmins] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
     const [showFilters, setShowFilters] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
+    const dispatch = useDispatch();
+
     const handleCreateAdmin = (newAdmin) => {
         setAdmins([...admins, newAdmin]);
         setShowCreateModal(false);
     };
+
+    useEffect(()=> {
+        const fetchAdmins = async () => {
+            try {
+                dispatch(toggleLoading(true))
+                const data = await AdminService.getAdmins();
+                setAdmins(data);
+            } catch (error) {
+                console.error("Error fetching admins:", error);
+            } finally {
+                dispatch(toggleLoading(false))
+            }
+        }   
+        fetchAdmins()
+    },[])
 
     // filter admins
     const filteredAdmins = admins.filter((admin) => {

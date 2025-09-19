@@ -32,8 +32,8 @@ const CreateAdminModal = ({ onClose, onSave }) => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+
         const validationErrors = validateAdminForm(formData);
-        console.log('validationErrors', validationErrors)
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors); // show errors
             return;
@@ -41,12 +41,11 @@ const CreateAdminModal = ({ onClose, onSave }) => {
 
         try {
             const res = await AdminService.createAdmin(formData)
-            console.log('res', res)
+            onSave(res.admin); 
         } catch (error) {
             console.error("Error creating admin:", error);
         }
 
-        onSave(formData); 
     };
 
     const handleClose = () => {

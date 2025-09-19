@@ -9,7 +9,7 @@ const AdminService = {
 
     // ✅ Get all admins
     getAdmins: async () => {
-        const response = await api.get("/admins");
+        const response = await api.get("/list");
         return response.data;
     },
 
