@@ -18,7 +18,15 @@ export const validateAdminForm = (data) => {
         errors.mobile = "Phone number must be exactly 10 digits";
     }
 
-    if (!data.password || data.password.length < 6) {
+    if (!data.password) {
+        errors.password = "Password is required";
+    } else if (!data.password || data.password.length < 6) {
+        errors.password = "Password must be at least 6 characters";
+    }
+
+    if (!data.role) {
+        errors.role = "Admin role is required";
+    } else if (data.role !== "admin" || data.role !== "super-admin") {
         errors.password = "Password must be at least 6 characters";
     }
 

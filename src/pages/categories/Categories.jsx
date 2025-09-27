@@ -9,13 +9,15 @@ import CategoryService from "../../api/service/categories";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../../redux/slice/adminSlice";; // 👈 make sure you have a category slice
 import CategoryTable from "../../components/tables/CategoriesTable";
+import InputField from "../../components/ui/InputField";
 
 const Categories = () => {
+    const [categoryName, setCategoryName] = useState("");
     const [categories, setCategories] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
     const [showFilters, setShowFilters] = useState(false);
-    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showCreateCategory, setCreateCategory] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -61,19 +63,32 @@ const Categories = () => {
     // Handle create new category
     const handleCreateCategory = (newCategory) => {
         setCategories([...categories, newCategory]);
-        setShowCreateModal(false);
+        setCreateCategory(false);
     };
 
     return (
         <div className="p-6 space-y-3">
             {/* Header */}
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center w-full">
                 <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
                     Category Management
                 </h1>
-                <Button variant="primary" onClick={() => setShowCreateModal(true)}>
-                    <FaPlus className="mr-2" /> Add Category
-                </Button>
+                <div className="flex gap-3">
+                    {
+                        showCreateCategory &&
+                        <div className="max-w-lg">
+                            <InputField name="name" 
+                            placeholder="Enter category name"
+                            onChange={(e) => setCategoryName(e.target.value)} 
+                            value={categoryName} 
+                            />
+                        </div>
+                    }
+
+                    <Button variant="primary" onClick={() => setCreateCategory(true)}>
+                        <FaPlus className="mr-2" /> Add Category
+                    </Button>
+                </div>
             </div>
 
             {/* Search + Filters */}
@@ -123,13 +138,6 @@ const Categories = () => {
             {/* Pagination */}
             <Pagination />
 
-            {/* Create Category Modal */}
-            {/* {showCreateModal && (
-                <CreateCategoryModal
-                    onClose={() => setShowCreateModal(false)}
-                    onCreate={handleCreateCategory}
-                />
-            )} */}
         </div>
     );
 };

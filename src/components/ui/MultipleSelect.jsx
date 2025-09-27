@@ -1,16 +1,15 @@
-// components/ui/CustomSelect.js
+// components/ui/MultipleSelect.js
 import React, { useState, useRef, useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-const CustomSelect = ({
+const MultipleSelect = ({
     label,
     name,
-    value,
+    value = [], // should be an array for multiple selections
     onChange,
     options = [],
     error = null,
-    required = false,
-    placeholder = "Select an option",
+    placeholder = "Select options",
 }) => {
     const [open, setOpen] = useState(false);
     const selectRef = useRef(null);
@@ -26,10 +25,21 @@ const CustomSelect = ({
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const handleSelect = (option) => {
-        onChange({ target: { name, value: option.value } });
-        setOpen(false);
+    // toggle select
+    const handleToggle = (option) => {
+        let newValue;
+        if (value.includes(option.value)) {
+            newValue = value.filter((val) => val !== option.value);
+        } else {
+            newValue = [...value, option.value];
+        }
+        onChange({ target: { name, value: newValue } });
     };
+
+    // display selected labels
+    const selectedLabels = options
+        .filter((opt) => value.includes(opt.value))
+        .map((opt) => opt.label);
 
     return (
         <div className="space-y-1 w-full" ref={selectRef}>
@@ -46,15 +56,18 @@ const CustomSelect = ({
                 className={`relative w-full border ${error ? "border-red-500" : "border-gray-300"
                     } rounded-md text-sm bg-white`}
             >
-                {/* Selected value */}
+                {/* Selected values */}
                 <button
                     type="button"
                     className="w-full flex items-center justify-between px-2 md:px-3 py-1.5 md:py-2 focus:outline-none focus:ring-1 focus:ring-green-600 rounded-md"
                     onClick={() => setOpen(!open)}
                 >
-                    <span className={`${!value ? "text-gray-400" : "text-gray-700"}`}>
-                        {value
-                            ? options.find((opt) => opt.value === value)?.label
+                    <span
+                        className={`truncate ${selectedLabels.length === 0 ? "text-gray-400" : "text-gray-700"
+                            }`}
+                    >
+                        {selectedLabels.length > 0
+                            ? selectedLabels.join(", ")
                             : placeholder}
                     </span>
                     <FaChevronDown
@@ -69,11 +82,21 @@ const CustomSelect = ({
                         {options.map((opt) => (
                             <li
                                 key={opt.value}
-                                onClick={() => handleSelect(opt)}
-                                className={`px-3 py-2 cursor-pointer hover:bg-green-100 ${opt.value === value ? "bg-green-50 font-medium" : ""
-                                    }`}
+                                onClick={() => handleToggle(opt)}
+                                className="px-3 py-2 flex items-center gap-2 cursor-pointer hover:bg-green-100"
                             >
-                                {opt.label}
+                                <input
+                                    type="checkbox"
+                                    checked={value.includes(opt.value)}
+                                    onChange={() => { }}
+                                    className="h-4 w-4 text-green-600 border-gray-300 rounded"
+                                />
+                                <span
+                                    className={`${value.includes(opt.value) ? "font-medium text-gray-700" : ""
+                                        }`}
+                                >
+                                    {opt.label}
+                                </span>
                             </li>
                         ))}
                         {options.length === 0 && (
@@ -88,4 +111,4 @@ const CustomSelect = ({
     );
 };
 
-export default CustomSelect;
+export default MultipleSelect;

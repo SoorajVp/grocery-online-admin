@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputField from "../../components/ui/InputField";
 import Button from "../../components/ui/Button";
-import CustomSelect from "../../components/ui/CustomSelect";
+import CustomSelect from "../../components/ui/DropdownSelect";
+import MultipleSelect from "../../components/ui/MultipleSelect";
 
 const AddProduct = ({ addProduct }) => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const AddProduct = ({ addProduct }) => {
         quantity: "",
         unit: "",
         description: "",
+        categories: [],
         images: ["", "", "", ""], // 4 slots minimum
         active: "true", // now stored as string for dropdown
     });
@@ -91,6 +93,22 @@ const AddProduct = ({ addProduct }) => {
 
                         {/* SKU */}
                         <InputField label="SKU" name="sku" onChange={handleChange} value={formData.sku} error={errors.sku} />
+
+                        {/* Category */}
+                        <MultipleSelect
+                            label="Categories"
+                            name="categories"
+                            value={formData.categories}
+                            onChange={handleChange}
+                            options={[
+                                { value: "2436tfd4564345", label: "Rice" },
+                                { value: "345435ef324532", label: "Friuts" },
+                                { value: "345435efsad332", label: "Vegitables" },
+                                { value: "3454rfwefd4532", label: "Books" },
+                            ]}
+                            placeholder="Select Categories ..."
+                            error={errors.categories}
+                        />
 
                         {/* Price */}
                         <InputField label="Price (₹)" name="price" type="number" onChange={handleChange} value={formData.price} error={errors.price} />

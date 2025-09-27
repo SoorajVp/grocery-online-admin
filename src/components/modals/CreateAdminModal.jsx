@@ -4,7 +4,7 @@ import { validateAdminForm } from "../../utils/validate";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
 import AdminService from "../../api/service/admin";
-import CustomSelect from "../ui/CustomSelect";
+import CustomSelect from "../ui/DropdownSelect";
 
 const CreateAdminModal = ({ onClose, onSave }) => {
     const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ const CreateAdminModal = ({ onClose, onSave }) => {
         email: "",
         mobile: "",
         password: "",
-        role: "admin",
+        role: "",
         blocked: "false",
     });
 
@@ -31,10 +31,12 @@ const CreateAdminModal = ({ onClose, onSave }) => {
         setErrors((prev) => ({ ...prev, [name]: "" })); // clear error on change
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
+        console.log('formData', formData)
         const validationErrors = validateAdminForm(formData);
+        console.log('validationErrors :>> ', validationErrors);
+
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors); // show errors
             return;
@@ -42,7 +44,7 @@ const CreateAdminModal = ({ onClose, onSave }) => {
 
         try {
             const res = await AdminService.createAdmin(formData)
-            onSave(res.admin); 
+            onSave(res.admin);
         } catch (error) {
             console.error("Error creating admin:", error);
         }
@@ -109,7 +111,7 @@ const CreateAdminModal = ({ onClose, onSave }) => {
                                 { value: "admin", label: "Admin" },
                                 { value: "super-admin", label: "Super Admin" },
                             ]}
-                            placeholder="Choose status..."
+                            placeholder="Choose role..."
                             error={errors.role}
                         />
 
@@ -123,7 +125,7 @@ const CreateAdminModal = ({ onClose, onSave }) => {
                             placeholder="Choose status..."
                             error={errors.blocked}
                         />
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Status
                             </label>
@@ -136,19 +138,19 @@ const CreateAdminModal = ({ onClose, onSave }) => {
                                 <option value="active">Active</option>
                                 <option value="blocked">Blocked</option>
                             </select>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Actions */}
                     <div className="mt-8 flex justify-end space-x-3">
-                       
+
                         <Button variant="muted" onClick={handleClose} >
                             Cancel
                         </Button>
                         <Button variant="primary" type="submit" >
                             Create
                         </Button>
-                        
+
                     </div>
                 </form>
             </div>
