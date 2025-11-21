@@ -33,7 +33,6 @@ const AdminTable = ({ admins, toggleAdminStatus }) => {
                     <thead>
                         <tr>
                             <th>Admin</th>
-                            <th className="text-center">Mobile</th>
                             <th className="text-center">Email</th>
                             <th className="text-center">Role</th>
                             <th className="text-center">Status</th>
@@ -54,26 +53,23 @@ const AdminTable = ({ admins, toggleAdminStatus }) => {
                                 {/* Admin column */}
                                 <td>
                                     <div className="flex items-center">
-                                        <div className="h-10 w-10 flex-shrink-0 bg-indigo-100 rounded-full flex items-center justify-center">
+                                        <div className="hidden md:flex h-10 w-10 flex-shrink-0 bg-indigo-100 rounded-full  items-center justify-center">
                                             <span className="font-medium text-indigo-700">
                                                 {admin.name.charAt(0).toUpperCase()}
                                             </span>
                                         </div>
-                                        <div className="ml-4">
-                                            <div className="text-xs lg:text-sm font-medium text-gray-900">
+                                        <div className="md:ml-4">
+                                            <div className="text-xs lg:text-sm font-medium text-nowrap text-gray-900">
                                                 {admin.name}
                                             </div>
-                                            <div className="text-xs text-gray-500">
+                                            <div className="text-xs text-nowrap text-gray-500">
                                                 ID: {admin._id?.slice(-6)}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
 
-                                {/* Mobile */}
-                                <td className="text-center text-gray-500 text-nowrap">
-                                    {admin.mobile}
-                                </td>
+                               
 
                                 {/* Email */}
                                 <td className="text-center text-gray-500">{admin.email}</td>

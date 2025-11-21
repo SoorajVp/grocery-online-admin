@@ -2,13 +2,23 @@ import React, { useState } from "react";
 import { FaLock, FaUser } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import AuthServce from "../../api/service/auth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        document.title = "Admin Login - Grocery Online";
+        const localToken = localStorage.getItem("access-token");
+        if (localToken) {
+            window.location.href = "/"; // redirect to home if already logged in
+        }
+    }, []);
     // const handleSubmit = async (e) => {
     //     e.preventDefault();  // stop reload immediately
 
@@ -26,23 +36,25 @@ const AdminLogin = () => {
     //         setError("Login failed, please try again");
     //     }
     // };
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Submit stopped!");
-            if (!email || !password) {
-                setError("Please fill all fields");
-                return;
-            }
+        if (!email || !password) {
+            setError("Please fill all fields");
+            return;
+        }
 
-            try {
-                const res = await AuthServce.adminLogin({ email, password });
-                console.log("res", res.token);
-                localStorage.setItem("access-token", res.token);
-                setError(""); 
-            } catch (err) {
-                console.error("error", err);
-                setError("Login failed, please try again");
-            }
+        try {
+            const res = await AuthServce.adminLogin({ email, password });
+            console.log("res", res.token);
+            localStorage.setItem("access-token", res.token);
+            setError("");
+             // redirect to home on successful login
+            navigate("/dashboard");
+        } catch (err) {
+            console.error("error", err);
+            setError("Login failed, please try again");
+        }
     };
 
 

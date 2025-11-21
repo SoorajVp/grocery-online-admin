@@ -40,8 +40,8 @@ const Categories = () => {
     // Filter categories
     const filteredCategories = categories.filter((cat) => {
         const matchesSearch =
-            cat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            cat.slug.toLowerCase().includes(searchTerm.toLowerCase());
+            cat?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            cat?.slug.toLowerCase().includes(searchTerm.toLowerCase());
 
         const matchesStatus =
             statusFilter === "all" ||
@@ -61,9 +61,17 @@ const Categories = () => {
     };
 
     // Handle create new category
-    const handleCreateCategory = (newCategory) => {
-        setCategories([...categories, newCategory]);
-        setCreateCategory(false);
+    const handleCreateCategory = async() => {
+        try {
+            const resp = await CategoryService.createCategory({ name: categoryName });
+            console.log('resp :>> ', resp);
+            const newCategory = resp.category;
+            setCategories([...categories, newCategory]);
+            setCreateCategory(false);
+        } catch (error) {
+            console.error("Error creating category:", error);
+        }
+       
     };
 
     return (
@@ -71,24 +79,30 @@ const Categories = () => {
             {/* Header */}
             <div className="flex justify-between items-center w-full">
                 <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-gray-800">
-                    Category Management
+                Category Management
                 </h1>
-                <div className="flex gap-3">
-                    {
-                        showCreateCategory &&
-                        <div className="max-w-lg">
-                            <InputField name="name" 
-                            placeholder="Enter category name"
-                            onChange={(e) => setCategoryName(e.target.value)} 
-                            value={categoryName} 
-                            />
-                        </div>
-                    }
 
-                    <Button variant="primary" onClick={() => setCreateCategory(true)}>
-                        <FaPlus className="mr-2" /> Add Category
-                    </Button>
-                </div>
+
+                {
+                    showCreateCategory ?
+                        <div className="flex gap-3">
+                            <div className="max-w-lg">
+                                <InputField name="name"
+                                    placeholder="Enter category name"
+                                    onChange={(e) => setCategoryName(e.target.value)}
+                                    value={categoryName}
+                                />
+                            </div>
+                            <Button variant="primary" onClick={handleCreateCategory}>
+                                <FaPlus className="mr-2" /> Create
+                            </Button>
+                        </div> :
+                        <Button variant="primary" onClick={() => setCreateCategory(true)}>
+                            <FaPlus className="mr-2" /> Add Category
+                        </Button>
+                }
+
+
             </div>
 
             {/* Search + Filters */}

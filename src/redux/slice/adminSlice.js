@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const adminSlice = createSlice({
-    name: 'admin',
+    name: ' ',
     initialState,
     reducers: {
         // when login request starts

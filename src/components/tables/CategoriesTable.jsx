@@ -51,22 +51,9 @@ const CategoryTable = ({ categories, toggleCategoryStatus }) => {
                         {categories.map((category) => (
                             <tr key={category._id}>
                                 {/* Category name */}
-                                <td>
-                                    <div className="flex items-center">
-                                        <div className="h-10 w-10 flex-shrink-0 bg-indigo-100 rounded-full flex items-center justify-center">
-                                            <span className="font-medium text-indigo-700">
-                                                {category.name.charAt(0).toUpperCase()}
-                                            </span>
-                                        </div>
-                                        <div className="ml-4">
-                                            <div className="text-xs lg:text-sm font-medium text-gray-900">
-                                                {category.name}
-                                            </div>
-                                            <div className="text-xs text-gray-500">
-                                                ID: {category._id?.slice(-6)}
-                                            </div>
-                                        </div>
-                                    </div>
+                                {/* Slug */}
+                                <td className="text-start text-gray-500">
+                                    {category.name}
                                 </td>
 
                                 {/* Slug */}
@@ -75,8 +62,10 @@ const CategoryTable = ({ categories, toggleCategoryStatus }) => {
                                 </td>
 
                                 {/* Created By */}
-                                <td className="text-center text-gray-500">
-                                    {category.createdBy?.name || "—"}
+                                <td className="text-center text-gray-500 hover:underline hover:text-indigo-500">
+                                    <Link to={`/admins/${category.createdBy._id}`}>
+                                        {category.createdBy?.name || "—"}
+                                    </Link>
                                 </td>
 
                                 {/* Status */}
